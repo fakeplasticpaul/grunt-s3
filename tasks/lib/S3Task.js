@@ -103,7 +103,10 @@ S3Task.prototype = {
             if(config.encodePaths === true) {
               dest = encodeURIComponent(dest);
             }
-
+            
+            //When running this from windows, path.join converts dest to windows filesystem with amazon s3 then interupts as a file name instead of folders
+            dest = dest.replace(/\\/g, "/");
+            
             return {file: file, dest: dest, upload: upload};
         });
     },
